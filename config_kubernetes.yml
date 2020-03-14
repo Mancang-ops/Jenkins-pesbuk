@@ -4,34 +4,30 @@ metadata:
   name: production
   labels:
     name: production
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
   name: jenkins-sp3-fb-service
   namespace: production
   labels:
-    app: p-jenkins-sp3-fb
+    app: s-jenkins-sp3-fb
     env: production
 spec:
   type: NodePort
   selector:
-    app: p-jenkins-sp3-fb
+    app: s-jenkins-sp3-fb
   ports:
     - port: 80
       protocol: TCP
-
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: jenkins-sp3-fb-configmap
   namespace: production
   labels:
-    app: p-jenkins-sp3-fb
+    app: s-jenkins-sp3-fb
     env: production
 data:
   config.php: |
@@ -39,7 +35,7 @@ data:
     $db_host = getenv("DB_HOST");
     $db_user = getenv("DB_USER");
     $db_pass = getenv("DB_PASS");
-    $db_name = "dbrudi";
+    $db_name = "dbsosmed";
     try {
     //create PDO connection
     $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
@@ -47,38 +43,37 @@ data:
     //show error
     die("Terjadi masalah: " . $e->getMessage());
     }
-
 ---
-
 apiVersion: v1
 kind: Secret
 metadata:
-  name: p-secret-fb
+  name: jenkins-sp3-fb-secret
   namespace: production
+  labels:
+    app: s-jenkins-sp3-fb
+    env: production
 type: Opaque
 data:
   DB_USER: cm9vdA==
   DB_PASS: MTIzNDU2Nzg5MA==
-
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins-sp3-fb-deployment
   namespace: production
   labels:
-    app: p-jenkins-sp3-fb
+    app: s-jenkins-sp3-fb
     env: production
 spec:
   selector:
     matchLabels:
-      app: p-jenkins-sp3-fb
+      app: s-jenkins-sp3-fb
   replicas: 2
   template:
     metadata:
       labels:
-        app: p-jenkins-sp3-fb
+        app: s-jenkins-sp3-fb
     spec:
       volumes:
         - configMap:
@@ -106,9 +101,7 @@ spec:
                 secretKeyRef:
                   name: jenkins-sp3-fb-secret
                   key: DB_PASS
-
 ---
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
