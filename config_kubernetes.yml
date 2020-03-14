@@ -106,6 +106,7 @@ spec:
                 secretKeyRef:
                   name: jenkins-sp3-fb-secret
                   key: DB_PASS
+
 ---
 
 apiVersion: extensions/v1beta1
