@@ -5,7 +5,7 @@ node('master') {
       echo 'Hello World'
     }
     stage('Git Pull from Github') {
-      git credentialsId: 'github_login', url: 'https://github.com/Mancang-ops/sp3-rudi.git'
+      git credentialsId: 'github_login', url: 'https://github.com/Mancang-ops/Jenkins-pesbuk.git'
     }
       stage('Build Docker Image') {
         sh "docker build --build-arg APP_NAME=jenkins-sp3-fb -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${BUILD_NUMBER} ."   

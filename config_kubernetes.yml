@@ -61,6 +61,7 @@ data:
   DB_PASS: MTIzNDU2Nzg5MA==
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
