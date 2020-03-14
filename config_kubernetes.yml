@@ -94,7 +94,7 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: config-fb
-              mountPath:  "/var/www/sosial-media/config.php"
+              mountPath:  "/var/www/html/sosial-media/config.php"
               subPath: "config.php"
           env:  
             - name: DB_HOST    
