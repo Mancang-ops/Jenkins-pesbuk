@@ -60,7 +60,7 @@ metadata:
     env: production
 type: Opaque
 data:
-  DB_USER: cm9vdA==
+  DB_USER: YWRtaW4=
   DB_PASS: MTIzNDU2Nzg5MA==
 
 ---
@@ -98,7 +98,7 @@ spec:
               subPath: "config.php"
           env:  
             - name: DB_HOST    
-              value: "database-1.cogsyqawtx3c.us-east-2.rds.amazonaws.com"
+              value: "database-1.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com"
             - name: DB_USER    
               valueFrom:       
                 secretKeyRef:
@@ -111,7 +111,7 @@ spec:
                   key: DB_PASS
 
 ---
-  
+
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
