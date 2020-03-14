@@ -4,7 +4,9 @@ metadata:
   name: production
   labels:
     name: production
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -20,7 +22,9 @@ spec:
   ports:
     - port: 80
       protocol: TCP
+
 ---
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -43,7 +47,9 @@ data:
     //show error
     die("Terjadi masalah: " . $e->getMessage());
     }
+
 ---
+
 apiVersion: v1
 kind: Secret
 metadata:
@@ -56,7 +62,9 @@ type: Opaque
 data:
   DB_USER: cm9vdA==
   DB_PASS: MTIzNDU2Nzg5MA==
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -101,7 +109,9 @@ spec:
                 secretKeyRef:
                   name: jenkins-sp3-fb-secret
                   key: DB_PASS
+
 ---
+  
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
