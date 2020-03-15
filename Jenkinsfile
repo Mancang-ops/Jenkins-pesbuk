@@ -1,4 +1,4 @@
-env.DOCKER_REGISTRY = 'rudiyanto'
+env.DOCKER_REGISTRY = 'pujakesuma'
 env.DOCKER_IMAGE_NAME = 'jenkins-sp3-fb'
 node('master') {
 	stage('HelloWorld') {
