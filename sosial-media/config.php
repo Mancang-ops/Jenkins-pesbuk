@@ -1,9 +1,9 @@
 <?php
 
-$db_host = "database-1.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com";
-$db_user = "admin";
+$db_host = "database-production.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com";
+$db_user = "devopscilsy";
 $db_pass = "1234567890";
-$db_name = "dbrudi";
+$db_name = "production";
 
 try {    
     //create PDO connection 
