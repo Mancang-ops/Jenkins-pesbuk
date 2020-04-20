@@ -39,7 +39,7 @@ data:
     $db_host = getenv("DB_HOST");
     $db_user = getenv("DB_USER");
     $db_pass = getenv("DB_PASS");
-    $db_name = "production";
+    $db_name = "dbrudi";
     try {
     //create PDO connection
     $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
@@ -60,7 +60,7 @@ metadata:
     env: production
 type: Opaque
 data:
-  DB_USER: ZGV2b3BzY2lsc3k=
+  DB_USER: YWRtaW4=
   DB_PASS: MTIzNDU2Nzg5MA==
 
 ---
@@ -98,7 +98,7 @@ spec:
               subPath: "config.php"
           env:  
             - name: DB_HOST    
-              value: "database-production.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com"
+              value: "database-1.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com"
             - name: DB_USER    
               valueFrom:       
                 secretKeyRef:
