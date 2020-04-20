@@ -1,5 +1,5 @@
 env.DOCKER_REGISTRY = 'pujakesuma'
-env.DOCKER_IMAGE_NAME = 'jenkins-sp3-fb'
+env.DOCKER_IMAGE_NAME = 'production-fb'
 node('master') {
 	stage('HelloWorld') {
       echo 'Hello World'
@@ -8,7 +8,7 @@ node('master') {
       git credentialsId: 'github_login', url: 'https://github.com/Mancang-ops/Jenkins-pesbuk.git'
     }
       stage('Build Docker Image') {
-        sh "docker build --build-arg APP_NAME=jenkins-sp3-fb -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${BUILD_NUMBER} ."   
+        sh "docker build --build-arg APP_NAME=production-fb -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${BUILD_NUMBER} ."   
     }
       stage('Push Docker Image to Dockerhub') {
           sh "docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:${BUILD_NUMBER}"

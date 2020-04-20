@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p-lp-deployment2
+  namespace: production
+  labels:
+    app: p-lp
+    env: production
+spec:
+  selector:
+    matchLabels:
+      app: p-lp
+      env: production
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: p-lp
+        env: production
+    spec:
+      volumes:
+        - name: p-lp-log
+          persistentVolumeClaim:
+            claimName: efs
+      imagePullSecrets:
+      - name: registry-secret
+      containers:
+      - name: p-lp
+        image: heryslty/jenkins-lp:stag-3
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: p-lp-log
+            mountPath: "/log"
+            subPath: "sandbox/development/"
+            

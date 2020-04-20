@@ -10,15 +10,15 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins-sp3-fb-service
+  name: production-fb-service
   namespace: production
   labels:
-    app: s-jenkins-sp3-fb
+    app: production-fb
     env: production
 spec:
   type: NodePort
   selector:
-    app: s-jenkins-sp3-fb
+    app: production-fb
   ports:
     - port: 80
       protocol: TCP
@@ -28,10 +28,10 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jenkins-sp3-fb-configmap
+  name: production-fb-configmap
   namespace: production
   labels:
-    app: s-jenkins-sp3-fb
+    app: production-fb
     env: production
 data:
   config.php: |
@@ -53,14 +53,14 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: jenkins-sp3-fb-secret
+  name: production-fb-secret
   namespace: production
   labels:
-    app: s-jenkins-sp3-fb
+    app: production-fb
     env: production
 type: Opaque
 data:
-  DB_USER: YWRtaW4=
+  DB_USER: ZGV2b3BzY2lsc3k=
   DB_PASS: MTIzNDU2Nzg5MA==
 
 ---
@@ -68,27 +68,27 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-sp3-fb-deployment
+  name: production-fb-deployment
   namespace: production
   labels:
-    app: s-jenkins-sp3-fb
+    app: production-fb
     env: production
 spec:
   selector:
     matchLabels:
-      app: s-jenkins-sp3-fb
+      app: production-fb
   replicas: 2
   template:
     metadata:
       labels:
-        app: s-jenkins-sp3-fb
+        app: production-fb
     spec:
       volumes:
         - configMap:
-            name: jenkins-sp3-fb-configmap
+            name: production-fb-configmap
           name: config-fb
       containers:
-        - name: jenkins-sp3-fb-pod
+        - name: production-fb-pod
           image: $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER
           ports:
             - containerPort: 80
@@ -98,16 +98,16 @@ spec:
               subPath: "config.php"
           env:  
             - name: DB_HOST    
-              value: "database-1.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com"
+              value: "database-production.cvlhrayg50qw.ap-southeast-1.rds.amazonaws.com"
             - name: DB_USER    
               valueFrom:       
                 secretKeyRef:
-                  name: jenkins-sp3-fb-secret
+                  name: production-fb-secret
                   key: DB_USER  
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: jenkins-sp3-fb-secret
+                  name: production-fb-secret
                   key: DB_PASS
 
 ---
@@ -125,10 +125,11 @@ metadata:
 spec:
   rules:
 ## Service Location n Characters
-  - host: jenkins-pesbuk.borjong.monster
+  - host: p-pesbuk.borjong.monster
     http:
       paths:
       - path: /
         backend:
-          serviceName: jenkins-sp3-fb-service
+          serviceName: production-fb-service
           servicePort: 80
+

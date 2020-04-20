@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: p-ingress
+  namespace: production
+  annotations:
+    ## Untuk menaikan batas upload file
+    nginx.org/client-max-body-size: "10m"
+    ## Memaksa jalan di https
+   # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+## Service Location n Characters
+  - host: rudi.borjong.monster
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-lp-service
+          servicePort: 80
