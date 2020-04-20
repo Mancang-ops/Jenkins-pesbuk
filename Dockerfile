@@ -6,6 +6,7 @@ WORKDIR /var/www/html
 
 RUN apt-get update -y \
     && apt-get install -y nginx
+    && docker-php-ext-install pdo_mysql
 
 RUN rm index.nginx-debian.html
 
