@@ -125,7 +125,7 @@ metadata:
 spec:
   rules:
 ## Service Location n Characters
-  - host: p-pesbuk.borjong.monster
+  - host: pesbuk.borjong.monster
     http:
       paths:
       - path: /
